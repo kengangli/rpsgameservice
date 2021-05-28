@@ -1,0 +1,58 @@
+package com.rpsgame.rpsrestservice.configurations;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import com.rpsgame.rpsrestservice.services.PlayerService;
+import com.rpsgame.rpsrestservice.daos.PlayerDao;
+import com.rpsgame.rpsrestservice.entities.Player;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    //PlayerService playerService;
+
+    @Autowired
+    private PlayerService playerService;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/players").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth)
+            throws Exception
+    {
+
+        //System.out.println(playerService.loadUserByUsername("user1").getPassword());
+        auth.userDetailsService(playerService); //.passwordEncoder(passwordEncoder());
+        //auth.inMemoryAuthentication() //.passwordEncoder(passwordEncoder())
+        //        .withUser("user1")
+        //        .password(new BCryptPasswordEncoder().encode("pass1"))
+         //       .roles("USER");
+
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+}
