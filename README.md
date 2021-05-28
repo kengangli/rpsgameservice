@@ -3,6 +3,12 @@ Below instruction descript how to run with Maven (mvnw)
 
   linux/unix:  ./mvnw spring-boot:run
   Windows: mvnw.cmd spring-boot:run
+  
+Below instruction descript how to package and run with Maven (mvnw)
+
+  linux/unix:  ./mvnw package && java -jar target/rps-rest-service-docker-0.0.1.jar
+  Windows: mvnw.cmd package && java -jar target\rps-rest-service-docker-0.0.1.jar
+  
 
 follow below instruction to in order to install and run with Docker, assuming you have local Docker container
   - Docker build command 
