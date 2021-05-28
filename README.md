@@ -1,12 +1,15 @@
 # rpsgameservice
-follow below instruction to install and run with Docker
+Below instruction descript how to run with Maven (mvnw)
+
+  linux/unix:  ./mvnw spring-boot:run
+  Windows: mvnw.cmd spring-boot:run
+
+follow below instruction to in order to install and run with Docker, assuming you have local Docker container
   - Docker build command 
     docker build -t rpsgame/rps-rest-service-docker .
   - Docker run command
     docker run -p 8081:8081 rpsgame/rps-rest-service-docker
     
-follow below instruction to run with Maven
-  ./mvnw spring-boot:run
   
 there are four REST APIs built in this application,
 1 initialize player data. The initial player data contains two users as below, 
